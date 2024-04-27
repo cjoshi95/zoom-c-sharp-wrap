@@ -7,6 +7,7 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 	public delegate void onUserJoin(array<unsigned int >^ lstUserID);
 	public delegate void onUserLeft(array<unsigned int >^ lstUserID);
 	public delegate void onHostChangeNotification(unsigned int userId);
+	public delegate void onCoHostChangeNotification(unsigned int userId, bool isCoHost);
 	public delegate void onLowOrRaiseHandStatusChanged(bool bLow, unsigned int userid);
 	public delegate void onUserNamesChanged(array<unsigned int >^ lstUserID);
 
@@ -31,6 +32,7 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		void Add_CB_onUserJoin(onUserJoin^ cb);
 		void Add_CB_onUserLeft(onUserLeft^ cb);
 		void Add_CB_onHostChangeNotification(onHostChangeNotification^ cb);
+		void Add_CB_onCoHostChangeNotification(onCoHostChangeNotification^ cb);
 		void Add_CB_onLowOrRaiseHandStatusChanged(onLowOrRaiseHandStatusChanged^ cb);
 		void Add_CB_onUserNamesChanged(onUserNamesChanged^ cb);
 		void Remove_CB_onUserJoin(onUserJoin^ cb);
@@ -52,6 +54,7 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		void procUserJoin(array<unsigned int >^ lstUserID);
 		void procUserLeft(array<unsigned int >^ lstUserID);
 		void procHostChangeNotification(unsigned int userId);
+		void procCoHostChangeNotification(unsigned int userId, bool isCoHost);
 		void procLowOrRaiseHandStatusChanged(bool lower, unsigned int userId);
 		void procUserNamesChanged(array<unsigned int >^ lstUserID);
 		virtual array<unsigned int >^ GetParticipantsList();
@@ -99,6 +102,14 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 			event_onHostChangeNotification -= cb;
 		}
 
+		virtual void Add_CB_onCoHostChangeNotification(onCoHostChangeNotification^ cb) {
+			event_onCoHostChangeNotification += cb;
+		}
+
+		virtual void Remove_CB_onCoHostChangeNotification(onCoHostChangeNotification^ cb) {
+			event_onCoHostChangeNotification -= cb;
+		}
+
 		virtual void Add_CB_onLowOrRaiseHandStatusChanged(onLowOrRaiseHandStatusChanged^ cb)
 		{
 			event_onLowOrRaiseHandStatusChanged += cb;
@@ -123,6 +134,7 @@ namespace ZOOM_SDK_DOTNET_WRAP {
 		event onUserJoin^ event_onUserJoin;
 		event onUserLeft^ event_onUserLeft;
 		event onHostChangeNotification^ event_onHostChangeNotification;
+		event onCoHostChangeNotification^ event_onCoHostChangeNotification;
 		event onLowOrRaiseHandStatusChanged^ event_onLowOrRaiseHandStatusChanged;
 		event onUserNamesChanged^ event_onUserNamesChanged;
 		static CMeetingParticipantsControllerDotNetWrap^ m_Instance = gcnew CMeetingParticipantsControllerDotNetWrap;
